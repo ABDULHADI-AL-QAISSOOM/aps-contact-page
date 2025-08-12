@@ -26,18 +26,10 @@
     min-height: 100vh;
   }
 
-  /* Dark mode support */
   @media (prefers-color-scheme: dark) {
-    body {
-      background: linear-gradient(135deg, var(--bg-dark), #1b2f33);
-      color: var(--text-light);
-    }
-    .container {
-      background: #1e2f33;
-    }
-    footer span {
-      color: var(--text-light);
-    }
+    body { background: linear-gradient(135deg, var(--bg-dark), #1b2f33); color: var(--text-light); }
+    .container { background: #1e2f33; }
+    footer span { color: var(--text-light); }
   }
 
   .container {
@@ -151,6 +143,21 @@
     background: var(--primary-hover);
   }
 
+  .form-status {
+    margin-top: 15px;
+    font-size: 14px;
+    display: none;
+    text-align: center;
+  }
+
+  .form-status.success {
+    color: green;
+  }
+
+  .form-status.error {
+    color: red;
+  }
+
   footer {
     margin: 25px 0;
     font-size: 14px;
@@ -162,7 +169,6 @@
     color: var(--primary);
   }
 
-  /* Animations */
   @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
@@ -211,18 +217,51 @@
   <!-- Quick Contact Form -->
   <div class="contact-form">
     <h2>Quick Contact Form</h2>
-    <form action="https://formsubmit.co/aps@kfupm.edu.sa" method="POST">
+    <form id="apsForm">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
       <button type="submit">Send Message</button>
     </form>
+    <div id="formStatus" class="form-status"></div>
   </div>
 </div>
 
 <footer>
   <span>Designed π Hadi</span>
 </footer>
+
+<script>
+  document.getElementById("apsForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById("formStatus");
+
+    status.style.display = "block";
+    status.textContent = "Sending...";
+    status.className = "form-status";
+
+    fetch("https://formsubmit.co/ajax/aps@kfupm.edu.sa", {
+      method: "POST",
+      body: new FormData(form)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success === "true") {
+        status.textContent = "✅ Message sent successfully!";
+        status.className = "form-status success";
+        form.reset();
+      } else {
+        status.textContent = "❌ Failed to send message. Please try again.";
+        status.className = "form-status error";
+      }
+    })
+    .catch(() => {
+      status.textContent = "❌ An error occurred. Please check your connection.";
+      status.className = "form-status error";
+    });
+  });
+</script>
 
 </body>
 </html>
