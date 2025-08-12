@@ -99,6 +99,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     position: relative;
     cursor: pointer;
+    z-index: 1; /* Ensure buttons are below tooltip */
   }
 
   a.button:hover {
@@ -111,7 +112,7 @@
     transition: transform 0.2s ease;
   }
 
-  /* Tooltip styling */
+  /* Tooltip styling with higher z-index */
   a.button::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -127,7 +128,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
-    z-index: 9999; /* Increased z-index for tooltip above buttons */
+    z-index: 9999; /* High z-index to appear above buttons */
   }
 
   a.button:hover::after {
@@ -205,7 +206,7 @@
     cursor: pointer;
     font-size: 14px;
     transition: background 0.3s ease;
-    z-index: 10000; /* Ensure toggle is always on top */
+    z-index: 10000; /* Always on top */
   }
 
   .dark-mode-toggle:hover {
@@ -263,7 +264,6 @@
   <div class="contact-form">
     <h2>How can we help?</h2>
     <form id="apsForm">
-      <input type="hidden" name="_captcha" value="false" />
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
@@ -298,38 +298,13 @@
     toggleBtn.setAttribute("aria-pressed", darkModePref);
   });
 
-  // AJAX form submission using FormSubmit.co
+  // Placeholder for form submission handler (you can add your own if needed)
   document.getElementById("apsForm").addEventListener("submit", function(e) {
     e.preventDefault();
-    const form = e.target;
     const status = document.getElementById("formStatus");
-
     status.style.display = "block";
-    status.textContent = "Sending...";
-    status.className = "form-status";
-
-    fetch("https://formsubmit.co/ajax/aps@kfupm.edu.sa", {
-      method: "POST",
-      body: new FormData(form),
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success === "true") {
-        status.textContent = "✅ Message sent successfully!";
-        status.className = "form-status success";
-        form.reset();
-      } else {
-        status.textContent = "❌ Failed to send message. Please try again.";
-        status.className = "form-status error";
-      }
-    })
-    .catch(() => {
-      status.textContent = "❌ An error occurred. Please check your connection.";
-      status.className = "form-status error";
-    });
+    status.textContent = "Form submission is currently not set up.";
+    status.className = "form-status error";
   });
 </script>
 
