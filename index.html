@@ -1,284 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact APS Office</title>
-<style>
-  :root {
-    --primary: #115f66;
-    --primary-hover: #177b84;
-    --bg-light: #f0f8fc;
-    --bg-dark: #0d1b1e;
-    --card-light: #ffffff;
-    --card-dark: #1e2f33;
-    --text-light: #fff;
-    --text-dark: #333;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact APS Office</title>
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-light: #48a999;
+      --primary-dark: #004d40;
+      --bg-light: #f9fafb;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #e0e0e0;
+      --text-dark: #333333;
+      --tooltip-bg: #004d40;
+      --tooltip-shadow: rgba(0, 77, 64, 0.8);
+      --transition-speed: 0.35s;
+    }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--bg-light);
-    color: var(--text-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 60px 20px 40px;
+      transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
 
-  body.dark-mode {
-    background: var(--bg-dark);
-    color: var(--text-light);
-  }
+    /* Dark mode toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: background var(--transition-speed);
+      z-index: 10000;
+      user-select: none;
+    }
+    .dark-mode-toggle:hover {
+      background: var(--primary-light);
+    }
 
-  .container {
-    margin-top: 40px;
-    background-color: var(--card-light);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-    transition: background 0.3s ease;
-  }
+    /* Container card */
+    .container {
+      background: var(--card-light);
+      padding: 50px 40px 60px;
+      max-width: 520px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow:
+        0 4px 20px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(0,0,0,0.03);
+      text-align: center;
+      transition: background var(--transition-speed);
+    }
+    body.dark-mode .container {
+      background: var(--card-dark);
+      box-shadow:
+        0 4px 20px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.05);
+    }
 
-  body.dark-mode .container {
-    background: var(--card-dark);
-  }
+    .logo {
+      max-width: 180px;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.07));
+      transition: filter var(--transition-speed);
+    }
+    body.dark-mode .logo {
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+    }
 
-  img.logo {
-    width: 220px;
-    margin-bottom: 20px;
-    animation: slideDown 1s ease-out;
-  }
+    h1 {
+      margin: 0 0 18px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      transition: color var(--transition-speed);
+    }
+    body.dark-mode h1 {
+      color: var(--primary-light);
+    }
 
-  h1 {
-    color: var(--primary);
-    font-size: 28px;
-    margin-bottom: 15px;
-    transition: color 0.3s ease;
-  }
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+      color: #666;
+      transition: color var(--transition-speed);
+    }
+    body.dark-mode p {
+      color: #aaa;
+    }
 
-  body.dark-mode h1 {
-    color: var(--text-light);
-  }
+    /* Buttons container */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-  p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 25px;
-  }
+    /* Button style */
+    a.button {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 28px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 45px;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
+      transition: background var(--transition-speed), box-shadow var(--transition-speed), transform 0.25s ease;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      justify-content: center;
+      overflow: visible;
+      z-index: 1;
+    }
+    a.button:hover,
+    a.button:focus-visible {
+      background: var(--primary-light);
+      box-shadow: 0 8px 25px rgba(72, 169, 153, 0.6);
+      transform: translateY(-3px);
+      outline: none;
+    }
 
-  body.dark-mode p {
-    color: #ccc;
-  }
+    a.button i {
+      background: rgba(255,255,255,0.25);
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 22px;
+      transition: background var(--transition-speed);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    a.button:hover i,
+    a.button:focus-visible i {
+      background: white;
+      color: var(--primary-dark);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    }
 
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+    /* Tooltip */
+    a.button::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--tooltip-bg);
+      color: white;
+      padding: 7px 14px;
+      font-size: 13px;
+      border-radius: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 6px 12px var(--tooltip-shadow);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9999;
+      user-select: none;
+    }
+    a.button:hover::after,
+    a.button:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+      pointer-events: auto;
+    }
 
-  a.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 20px;
-    background-color: var(--primary);
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    position: relative;
-    cursor: pointer;
-    z-index: 1; /* Ensure buttons are below tooltip */
-  }
+    /* Footer */
+    footer {
+      margin-top: 50px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--primary);
+      user-select: none;
+    }
+    body.dark-mode footer {
+      color: var(--primary-light);
+    }
 
-  a.button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-  }
-
-  a.button:hover i {
-    transform: rotate(10deg) scale(1.1);
-    transition: transform 0.2s ease;
-  }
-
-  /* Tooltip styling with higher z-index */
-  a.button::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--primary);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    z-index: 9999; /* High z-index to appear above buttons */
-  }
-
-  a.button:hover::after {
-    opacity: 1;
-  }
-
-  /* Quick Contact Form */
-  .contact-form {
-    margin-top: 30px;
-    text-align: left;
-  }
-
-  .contact-form input, .contact-form textarea, .contact-form button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    transition: background 0.3s ease, color 0.3s ease;
-    font-family: inherit;
-  }
-
-  body.dark-mode .contact-form input,
-  body.dark-mode .contact-form textarea {
-    background: #2b3d42;
-    color: var(--text-light);
-    border: 1px solid #555;
-  }
-
-  .contact-form button {
-    background: var(--primary);
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .contact-form button:hover {
-    background: var(--primary-hover);
-  }
-
-  .form-status {
-    margin-top: 15px;
-    font-size: 14px;
-    display: none;
-    text-align: center;
-  }
-
-  .form-status.success { color: green; }
-  .form-status.error { color: red; }
-
-  footer {
-    margin: 25px 0;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  footer span {
-    font-weight: bold;
-    color: var(--primary);
-  }
-
-  /* Dark Mode Toggle */
-  .dark-mode-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s ease;
-    z-index: 10000; /* Always on top */
-  }
-
-  .dark-mode-toggle:hover {
-    background: var(--primary-hover);
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (max-width: 500px) {
-    h1 { font-size: 22px; }
-    p { font-size: 14px; }
-    a.button { font-size: 14px; padding: 12px; }
-  }
-</style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px 40px;
+      }
+      a.button {
+        font-size: 1rem;
+        padding: 14px 22px;
+      }
+      a.button i {
+        font-size: 18px;
+        padding: 8px;
+      }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<button class="dark-mode-toggle" aria-pressed="false" aria-label="Toggle dark mode" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+<button class="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-<div class="container">
+<div class="container" role="main" aria-label="Contact APS Office">
   <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
   <h1>Contact APS Office</h1>
-  <p>We are here to help! Choose the option that fits your needs — it will open an email with a ready-to-fill template.</p>
+  <p>We are here to help! Choose an option below to open an email with a ready-to-fill template.</p>
 
-  <div class="button-container">
-    <a class="button" aria-label="Report an issue to APS Office"
-       data-tooltip="Opens your email with an issue template"
-       href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue...">
-       <i class="fas fa-exclamation-circle"></i> I am facing an issue
+  <nav class="button-container" aria-label="Contact options">
+    <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue..."
+      data-tooltip="Opens your email with an issue template" aria-describedby="tooltip1">
+      <i class="fas fa-exclamation-circle" aria-hidden="true"></i> I am facing an issue
     </a>
 
-    <a class="button" aria-label="Ask a question to APS Office"
-       data-tooltip="Opens your email with an inquiry template"
-       href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question...">
-       <i class="fas fa-question-circle"></i> I have an inquiry
+    <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question..."
+      data-tooltip="Opens your email with an inquiry template" aria-describedby="tooltip2">
+      <i class="fas fa-question-circle" aria-hidden="true"></i> I have an inquiry
     </a>
 
-    <a class="button" aria-label="Send a suggestion to APS Office"
-       data-tooltip="Opens your email with a suggestion template"
-       href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion...">
-       <i class="fas fa-lightbulb"></i> Suggestions
+    <a class="button" href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion..."
+      data-tooltip="Opens your email with a suggestion template" aria-describedby="tooltip3">
+      <i class="fas fa-lightbulb" aria-hidden="true"></i> Suggestions
     </a>
-  </div>
-
-  <!-- Quick Contact Form -->
-  <div class="contact-form">
-    <h2>How can we help?</h2>
-    <form id="apsForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="formStatus" class="form-status"></div>
-  </div>
+  </nav>
 </div>
 
 <footer>
-  <span>Designed π Hadi</span>
+  Designed π Hadi
 </footer>
 
 <script>
-  // Dark Mode Toggle with localStorage & aria-pressed update
+  // Dark Mode Toggle with localStorage and button label update
   function toggleDarkMode() {
     const isDark = document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", isDark);
@@ -286,8 +261,6 @@
     toggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     toggleBtn.setAttribute("aria-pressed", isDark);
   }
-
-  // Load preference on page load & update toggle text and aria-pressed
   window.addEventListener("DOMContentLoaded", () => {
     const darkModePref = localStorage.getItem("darkMode") === "true";
     if (darkModePref) {
@@ -296,15 +269,6 @@
     const toggleBtn = document.querySelector(".dark-mode-toggle");
     toggleBtn.textContent = darkModePref ? "☀️ Light Mode" : "🌙 Dark Mode";
     toggleBtn.setAttribute("aria-pressed", darkModePref);
-  });
-
-  // Placeholder for form submission handler (you can add your own if needed)
-  document.getElementById("apsForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const status = document.getElementById("formStatus");
-    status.style.display = "block";
-    status.textContent = "Form submission is currently not set up.";
-    status.className = "form-status error";
   });
 </script>
 
