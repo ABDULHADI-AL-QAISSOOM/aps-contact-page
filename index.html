@@ -263,6 +263,7 @@
   <div class="contact-form">
     <h2>How can we help?</h2>
     <form id="apsForm">
+      <input type="hidden" name="_captcha" value="false" />
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
@@ -297,7 +298,7 @@
     toggleBtn.setAttribute("aria-pressed", darkModePref);
   });
 
-  // AJAX form submission
+  // AJAX form submission using FormSubmit.co
   document.getElementById("apsForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const form = e.target;
@@ -307,12 +308,28 @@
     status.textContent = "Sending...";
     status.className = "form-status";
 
-    // Simulate AJAX sending (replace with real endpoint if needed)
-    setTimeout(() => {
-      status.textContent = "✅ Message sent successfully!";
-      status.className = "form-status success";
-      form.reset();
-    }, 1500);
+    fetch("https://formsubmit.co/ajax/aps@kfupm.edu.sa", {
+      method: "POST",
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success === "true") {
+        status.textContent = "✅ Message sent successfully!";
+        status.className = "form-status success";
+        form.reset();
+      } else {
+        status.textContent = "❌ Failed to send message. Please try again.";
+        status.className = "form-status error";
+      }
+    })
+    .catch(() => {
+      status.textContent = "❌ An error occurred. Please check your connection.";
+      status.className = "form-status error";
+    });
   });
 </script>
 
