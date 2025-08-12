@@ -1,139 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact APS Office</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact APS Office</title>
+<style>
+  :root {
+    --primary: #115f66;
+    --primary-hover: #177b84;
+    --bg-light: #f0f8fc;
+    --bg-dark: #0d1b1e;
+    --text-light: #fff;
+    --text-dark: #333;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--bg-light), #eaf6f8);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f8fc; /* Soft background for a calming effect */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-dark), #1b2f33);
+      color: var(--text-light);
     }
-
     .container {
-      text-align: center;
-      background-color: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      max-width: 450px;
-      width: 90%;
+      background: #1e2f33;
     }
-
-    img.logo {
-      width: 250px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      color: #115f66;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 30px;
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    a.button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 20px;
-      background-color: #115f66;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      border-radius: 10px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    a.button:hover {
-      background-color: #177b84;
-      transform: translateY(-2px);
-    }
-
-    a.button:focus {
-      outline: 4px solid #177b84;
-    }
-
-    a.button i {
-      font-size: 20px;
-    }
-
-    footer {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-    }
-
     footer span {
-      font-weight: bold;
-      color: #115f66;
+      color: var(--text-light);
     }
+  }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 24px;
-      }
+  .container {
+    margin-top: 40px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
 
-      p {
-        font-size: 14px;
-      }
+  img.logo {
+    width: 220px;
+    margin-bottom: 20px;
+    animation: slideDown 1s ease-out;
+  }
 
-      a.button {
-        font-size: 14px;
-        padding: 12px 16px;
-      }
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  h1 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 25px;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+  }
+
+  a.button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+  }
+
+  a.button:hover i {
+    transform: rotate(10deg) scale(1.1);
+    transition: transform 0.2s ease;
+  }
+
+  a.button::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  a.button:hover::after {
+    opacity: 1;
+  }
+
+  /* Quick Contact Form */
+  .contact-form {
+    margin-top: 30px;
+    text-align: left;
+  }
+
+  .contact-form input, .contact-form textarea, .contact-form button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  .contact-form button {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .contact-form button:hover {
+    background: var(--primary-hover);
+  }
+
+  footer {
+    margin: 25px 0;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  footer span {
+    font-weight: bold;
+    color: var(--primary);
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 500px) {
+    h1 { font-size: 22px; }
+    p { font-size: 14px; }
+    a.button { font-size: 14px; padding: 12px; }
+  }
+</style>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <div class="container">
-    <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
-    <h1>Contact APS Office</h1>
-    <p>We are here to help! Please select the option that best matches your needs. You’ll be guided to email us with a template of the necessary details.</p>
-    <div class="button-container">
-      <!-- Button: I am facing an issue -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue%20and%20would%20appreciate%20your%20help.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20the%20issue%3F%20%28Please%20describe%20it%20briefly%29%0A-%20When%20did%20it%20start%3F%20%28Provide%20a%20date%20if%20possible%29%0A-%20Steps%20you%20have%20already%20taken%20to%20resolve%20it%3A%0A%0AThank%20you%20in%20advance%20for%20your%20support.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D">
-        <i class="fas fa-exclamation-circle"></i> I am facing an issue
-      </a>
-      <!-- Button: I have an inquiry -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question%20that%20I%20hope%20you%20can%20help%20me%20with.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20your%20question%3F%20%28Be%20as%20specific%20as%20possible%29%0A-%20Is%20there%20any%20relevant%20background%20information%20we%20should%20know%3F%0A%0AThank%20you%20so%20much%20for%20your%20time%20and%20assistance.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D">
-        <i class="fas fa-question-circle"></i> I have an inquiry
-      </a>
-      <!-- Button: Suggestions -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion%20that%20I%20believe%20could%20be%20helpful.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20your%20suggestion%3F%20%28Please%20describe%20it%20briefly%29%0A-%20How%20could%20this%20improve%20our%20services%3F%0A%0AThank%20you%20for%20considering%20my%20input.%20I%20appreciate%20your%20time%20and%20effort.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D">
-        <i class="fas fa-lightbulb"></i> Suggestions
-      </a>
-    </div>
+<div class="container">
+  <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
+  <h1>Contact APS Office</h1>
+  <p>We are here to help! Choose the option that fits your needs — it will open an email with a ready-to-fill template.</p>
+
+  <div class="button-container">
+    <a class="button" aria-label="Report an issue to APS Office"
+       data-tooltip="Opens your email with an issue template"
+       href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue...">
+       <i class="fas fa-exclamation-circle"></i> I am facing an issue
+    </a>
+
+    <a class="button" aria-label="Ask a question to APS Office"
+       data-tooltip="Opens your email with an inquiry template"
+       href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question...">
+       <i class="fas fa-question-circle"></i> I have an inquiry
+    </a>
+
+    <a class="button" aria-label="Send a suggestion to APS Office"
+       data-tooltip="Opens your email with a suggestion template"
+       href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion...">
+       <i class="fas fa-lightbulb"></i> Suggestions
+    </a>
   </div>
 
-  <!-- Footer with designer credit -->
-  <footer>
-    <span>Designed π Hadi</span>
-  </footer>
+  <!-- Quick Contact Form -->
+  <div class="contact-form">
+    <h2>Quick Contact Form</h2>
+    <form action="https://formsubmit.co/aps@kfupm.edu.sa" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <span>Designed π Hadi</span>
+</footer>
 
 </body>
 </html>
