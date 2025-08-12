@@ -10,6 +10,8 @@
     --primary-hover: #177b84;
     --bg-light: #f0f8fc;
     --bg-dark: #0d1b1e;
+    --card-light: #ffffff;
+    --card-dark: #1e2f33;
     --text-light: #fff;
     --text-dark: #333;
   }
@@ -18,23 +20,23 @@
     font-family: 'Segoe UI', Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, var(--bg-light), #eaf6f8);
+    background: var(--bg-light);
     color: var(--text-dark);
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
-  @media (prefers-color-scheme: dark) {
-    body { background: linear-gradient(135deg, var(--bg-dark), #1b2f33); color: var(--text-light); }
-    .container { background: #1e2f33; }
-    footer span { color: var(--text-light); }
+  body.dark-mode {
+    background: var(--bg-dark);
+    color: var(--text-light);
   }
 
   .container {
     margin-top: 40px;
-    background-color: white;
+    background-color: var(--card-light);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -42,6 +44,11 @@
     width: 90%;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
+    transition: background 0.3s ease;
+  }
+
+  body.dark-mode .container {
+    background: var(--card-dark);
   }
 
   img.logo {
@@ -60,6 +67,10 @@
     font-size: 16px;
     color: #555;
     margin-bottom: 25px;
+  }
+
+  body.dark-mode p {
+    color: #ccc;
   }
 
   .button-container {
@@ -128,6 +139,14 @@
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  body.dark-mode .contact-form input,
+  body.dark-mode .contact-form textarea {
+    background: #2b3d42;
+    color: var(--text-light);
+    border: 1px solid #555;
   }
 
   .contact-form button {
@@ -150,13 +169,8 @@
     text-align: center;
   }
 
-  .form-status.success {
-    color: green;
-  }
-
-  .form-status.error {
-    color: red;
-  }
+  .form-status.success { color: green; }
+  .form-status.error { color: red; }
 
   footer {
     margin: 25px 0;
@@ -167,6 +181,25 @@
   footer span {
     font-weight: bold;
     color: var(--primary);
+  }
+
+  /* Dark Mode Toggle */
+  .dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+  }
+
+  .dark-mode-toggle:hover {
+    background: var(--primary-hover);
   }
 
   @keyframes fadeIn {
@@ -188,6 +221,8 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
 <div class="container">
   <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
@@ -216,7 +251,7 @@
 
   <!-- Quick Contact Form -->
   <div class="contact-form">
-    <h2>Quick Contact Form</h2>
+    <h2>How can we help?</h2>
     <form id="apsForm">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
@@ -232,6 +267,17 @@
 </footer>
 
 <script>
+  // Dark Mode Toggle with localStorage
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  }
+  // Load preference on page load
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+
+  // AJAX form submission
   document.getElementById("apsForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const form = e.target;
