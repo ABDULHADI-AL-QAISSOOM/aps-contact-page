@@ -1,374 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact APS Office</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f8fc; /* Soft background for a calming effect */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      color: #000;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact APS Office</title>
+<style>
+  :root {
+    --primary: #115f66;
+    --primary-hover: #177b84;
+    --bg-light: #f0f8fc;
+    --bg-dark: #0d1b1e;
+    --card-light: #ffffff;
+    --card-dark: #1e2f33;
+    --text-light: #fff;
+    --text-dark: #333;
+  }
 
-    body.dark-mode {
-      background-color: #121b22;
-      color: #e0e6eb;
-    }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-light);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
 
-    .container {
-      text-align: center;
-      background-color: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      max-width: 450px;
-      width: 90%;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+  body.dark-mode {
+    background: var(--bg-dark);
+    color: var(--text-light);
+  }
 
-    body.dark-mode .container {
-      background-color: #1f2a34;
-      color: #e0e6eb;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-    }
+  .container {
+    margin-top: 40px;
+    background-color: var(--card-light);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    transition: background 0.3s ease;
+  }
 
-    img.logo {
-      width: 250px;
-      margin-bottom: 20px;
-    }
+  body.dark-mode .container {
+    background: var(--card-dark);
+  }
 
-    h1 {
-      color: #115f66;
-      font-size: 28px;
-      margin-bottom: 20px;
-      transition: color 0.3s ease;
-    }
+  img.logo {
+    width: 220px;
+    margin-bottom: 20px;
+    animation: slideDown 1s ease-out;
+  }
 
-    body.dark-mode h1 {
-      color: white;
-    }
+  h1 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
 
-    p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 30px;
-      transition: color 0.3s ease;
-    }
+  body.dark-mode h1 {
+    color: var(--text-light);
+  }
 
-    body.dark-mode p {
-      color: #c5d1d8;
-    }
+  p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 25px;
+  }
 
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      position: relative;
-      margin-bottom: 40px;
-    }
+  body.dark-mode p {
+    color: #ccc;
+  }
 
-    a.button {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 20px;
-      background-color: #115f66;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      border-radius: 10px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      z-index: 1;
-    }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 
-    a.button:hover {
-      background-color: #177b84;
-      transform: translateY(-2px);
-    }
+  a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    cursor: pointer;
+  }
 
-    a.button:focus {
-      outline: 4px solid #177b84;
-      outline-offset: 2px;
-    }
+  a.button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+  }
 
-    a.button i {
-      font-size: 20px;
-    }
+  a.button:hover i {
+    transform: rotate(10deg) scale(1.1);
+    transition: transform 0.2s ease;
+  }
 
-    /* Tooltip styling */
-    a.button[data-tooltip]:hover::after,
-    a.button[data-tooltip]:focus::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      top: -35px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 14px;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 9999; /* Ensures tooltip is above all buttons */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    }
+  /* Tooltip styling */
+  a.button::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 9999; /* Increased z-index for tooltip above buttons */
+  }
 
-    /* Form styling */
-    form#helpForm {
-      text-align: left;
-      max-width: 450px;
-      margin: 0 auto 20px;
-    }
+  a.button:hover::after {
+    opacity: 1;
+  }
 
-    form#helpForm label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+  /* Quick Contact Form */
+  .contact-form {
+    margin-top: 30px;
+    text-align: left;
+  }
 
-    form#helpForm input,
-    form#helpForm textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      font-size: 15px;
-      transition: border-color 0.3s ease;
-      font-family: inherit;
-    }
+  .contact-form input, .contact-form textarea, .contact-form button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-family: inherit;
+  }
 
-    body.dark-mode form#helpForm input,
-    body.dark-mode form#helpForm textarea {
-      background-color: #2a3a46;
-      color: #e0e6eb;
-      border: 1px solid #555;
-    }
+  body.dark-mode .contact-form input,
+  body.dark-mode .contact-form textarea {
+    background: #2b3d42;
+    color: var(--text-light);
+    border: 1px solid #555;
+  }
 
-    form#helpForm input:focus,
-    form#helpForm textarea:focus {
-      border-color: #115f66;
-      outline: none;
-    }
+  .contact-form button {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
 
-    form#helpForm button {
-      background-color: #115f66;
-      color: white;
-      font-weight: bold;
-      border: none;
-      padding: 14px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      width: 100%;
-    }
+  .contact-form button:hover {
+    background: var(--primary-hover);
+  }
 
-    form#helpForm button:hover {
-      background-color: #177b84;
-    }
+  .form-status {
+    margin-top: 15px;
+    font-size: 14px;
+    display: none;
+    text-align: center;
+  }
 
-    /* Response message styling */
-    #formResponse {
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 10px;
-      color: green;
-      text-align: center;
-    }
+  .form-status.success { color: green; }
+  .form-status.error { color: red; }
 
-    /* Footer */
-    footer {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-      transition: color 0.3s ease;
-    }
+  footer {
+    margin: 25px 0;
+    font-size: 14px;
+    text-align: center;
+  }
 
-    body.dark-mode footer {
-      color: #a1b3bc;
-    }
+  footer span {
+    font-weight: bold;
+    color: var(--primary);
+  }
 
-    footer span {
-      font-weight: bold;
-      color: #115f66;
-    }
+  /* Dark Mode Toggle */
+  .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    z-index: 10000; /* Ensure toggle is always on top */
+  }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 24px;
-      }
+  .dark-mode-toggle:hover {
+    background: var(--primary-hover);
+  }
 
-      p {
-        font-size: 14px;
-      }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
 
-      a.button {
-        font-size: 14px;
-        padding: 12px 16px;
-      }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-      form#helpForm button {
-        font-size: 14px;
-        padding: 12px 16px;
-      }
-    }
-
-    /* Dark mode toggle button */
-    #darkModeToggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      padding: 10px 16px;
-      background-color: #115f66;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      z-index: 10000;
-      transition: background-color 0.3s ease;
-    }
-
-    #darkModeToggle:hover {
-      background-color: #177b84;
-    }
-  </style>
-
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  @media (max-width: 500px) {
+    h1 { font-size: 22px; }
+    p { font-size: 14px; }
+    a.button { font-size: 14px; padding: 12px; }
+  }
+</style>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
 
-  <button id="darkModeToggle" aria-pressed="false" aria-label="Toggle dark mode">🌙 Dark Mode</button>
+<button class="dark-mode-toggle" aria-pressed="false" aria-label="Toggle dark mode" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-  <div class="container" role="main">
-    <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
-    <h1>Contact APS Office</h1>
-    <p>We are here to help! Please select the option that best matches your needs. You’ll be guided to email us with a template of the necessary details.</p>
-    <div class="button-container">
-      <!-- Button: I am facing an issue -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue%20and%20would%20appreciate%20your%20help.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20the%20issue%3F%20%28Please%20describe%20it%20briefly%29%0A-%20When%20did%20it%20start%3F%20%28Provide%20a%20date%20if%20possible%29%0A-%20Steps%20you%20have%20already%20taken%20to%20resolve%20it%3A%0A%0AThank%20you%20in%20advance%20for%20your%20support.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
-         data-tooltip="Opens your email with an issue template">
-        <i class="fas fa-exclamation-circle"></i> I am facing an issue
-      </a>
-      <!-- Button: I have an inquiry -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question%20that%20I%20hope%20you%20can%20help%20me%20with.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20your%20question%3F%20%28Be%20as%20specific%20as%20possible%29%0A-%20Is%20there%20any%20relevant%20background%20information%20we%20should%20know%3F%0A%0AThank%20you%20so%20much%20for%20your%20time%20and%20assistance.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
-         data-tooltip="Opens your email with an inquiry template">
-        <i class="fas fa-question-circle"></i> I have an inquiry
-      </a>
-      <!-- Button: Suggestions -->
-      <a class="button" href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion%20that%20I%20believe%20could%20be%20helpful.%20Here%20are%20the%20details%3A%0A%0A-%20What%20is%20your%20suggestion%3F%20%28Please%20describe%20it%20briefly%29%0A-%20How%20could%20this%20improve%20our%20services%3F%0A%0AThank%20you%20for%20considering%20my%20input.%20I%20appreciate%20your%20time%20and%20effort.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
-         data-tooltip="Opens your email with a suggestion template">
-        <i class="fas fa-lightbulb"></i> Suggestions
-      </a>
-    </div>
+<div class="container">
+  <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
+  <h1>Contact APS Office</h1>
+  <p>We are here to help! Choose the option that fits your needs — it will open an email with a ready-to-fill template.</p>
 
-    <!-- AJAX Form: How can we help? -->
-    <form id="helpForm" aria-label="How can we help? form">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required placeholder="Enter your full name" autocomplete="name" />
+  <div class="button-container">
+    <a class="button" aria-label="Report an issue to APS Office"
+       data-tooltip="Opens your email with an issue template"
+       href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue...">
+       <i class="fas fa-exclamation-circle"></i> I am facing an issue
+    </a>
 
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" required placeholder="Enter your email" autocomplete="email" />
+    <a class="button" aria-label="Ask a question to APS Office"
+       data-tooltip="Opens your email with an inquiry template"
+       href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question...">
+       <i class="fas fa-question-circle"></i> I have an inquiry
+    </a>
 
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" required placeholder="How can we help?"></textarea>
-
-      <button type="submit">Send Message</button>
-      <div id="formResponse" role="alert" aria-live="polite"></div>
-    </form>
+    <a class="button" aria-label="Send a suggestion to APS Office"
+       data-tooltip="Opens your email with a suggestion template"
+       href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion...">
+       <i class="fas fa-lightbulb"></i> Suggestions
+    </a>
   </div>
 
-  <!-- Footer with designer credit -->
-  <footer>
-    <span>Designed π Hadi</span>
-  </footer>
+  <!-- Quick Contact Form -->
+  <div class="contact-form">
+    <h2>How can we help?</h2>
+    <form id="apsForm">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="formStatus" class="form-status"></div>
+  </div>
+</div>
 
-  <script>
-    // Dark mode toggle setup
-    const darkToggleBtn = document.getElementById('darkModeToggle');
-    const body = document.body;
+<footer>
+  <span>Designed π Hadi</span>
+</footer>
 
-    function applyDarkMode(isDark) {
-      if (isDark) {
-        body.classList.add('dark-mode');
-        darkToggleBtn.textContent = '☀️ Light Mode';
-        darkToggleBtn.setAttribute('aria-pressed', 'true');
-      } else {
-        body.classList.remove('dark-mode');
-        darkToggleBtn.textContent = '🌙 Dark Mode';
-        darkToggleBtn.setAttribute('aria-pressed', 'false');
-      }
-      try {
-        localStorage.setItem('aps_dark_mode', isDark ? '1' : '0');
-      } catch(e) {}
+<script>
+  // Dark Mode Toggle with localStorage & aria-pressed update
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    const toggleBtn = document.querySelector(".dark-mode-toggle");
+    toggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    toggleBtn.setAttribute("aria-pressed", isDark);
+  }
+
+  // Load preference on page load & update toggle text and aria-pressed
+  window.addEventListener("DOMContentLoaded", () => {
+    const darkModePref = localStorage.getItem("darkMode") === "true";
+    if (darkModePref) {
+      document.body.classList.add("dark-mode");
     }
+    const toggleBtn = document.querySelector(".dark-mode-toggle");
+    toggleBtn.textContent = darkModePref ? "☀️ Light Mode" : "🌙 Dark Mode";
+    toggleBtn.setAttribute("aria-pressed", darkModePref);
+  });
 
-    (function initDarkMode() {
-      let saved = null;
-      try {
-        saved = localStorage.getItem('aps_dark_mode');
-      } catch(e) {}
-      if (saved === '1') {
-        applyDarkMode(true);
-      } else {
-        applyDarkMode(false);
-      }
-    })();
+  // AJAX form submission
+  document.getElementById("apsForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById("formStatus");
 
-    darkToggleBtn.addEventListener('click', () => {
-      applyDarkMode(!body.classList.contains('dark-mode'));
-    });
+    status.style.display = "block";
+    status.textContent = "Sending...";
+    status.className = "form-status";
 
-    // AJAX form submission for "How can we help?"
-    const helpForm = document.getElementById('helpForm');
-    const formResponse = document.getElementById('formResponse');
+    // Simulate AJAX sending (replace with real endpoint if needed)
+    setTimeout(() => {
+      status.textContent = "✅ Message sent successfully!";
+      status.className = "form-status success";
+      form.reset();
+    }, 1500);
+  });
+</script>
 
-    helpForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Collect form data
-      const formData = {
-        name: helpForm.name.value.trim(),
-        email: helpForm.email.value.trim(),
-        message: helpForm.message.value.trim(),
-      };
-
-      // Simple validation (already required by inputs, but just in case)
-      if (!formData.name || !formData.email || !formData.message) {
-        formResponse.style.color = 'red';
-        formResponse.textContent = 'Please fill out all fields.';
-        return;
-      }
-
-      // Simulate AJAX submission
-      formResponse.style.color = '#115f66';
-      formResponse.textContent = 'Sending message...';
-
-      // Simulate delay (e.g., server request)
-      setTimeout(() => {
-        formResponse.textContent = 'Thank you! Your message has been sent. How can we help?';
-        helpForm.reset();
-      }, 1500);
-    });
-  </script>
 </body>
 </html>
