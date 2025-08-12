@@ -1,312 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact APS Office</title>
 <style>
-  :root {
-    --primary: #115f66;
-    --primary-hover: #177b84;
-    --bg-light: #f0f8fc;
-    --bg-dark: #0d1b1e;
-    --card-light: #ffffff;
-    --card-dark: #1e2f33;
-    --text-light: #fff;
-    --text-dark: #333;
-  }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--bg-light);
-    color: var(--text-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  body.dark-mode {
-    background: var(--bg-dark);
-    color: var(--text-light);
-  }
-
-  .container {
-    margin-top: 40px;
-    background-color: var(--card-light);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-    transition: background 0.3s ease;
-  }
-
-  body.dark-mode .container {
-    background: var(--card-dark);
-  }
-
-  img.logo {
-    width: 220px;
-    margin-bottom: 20px;
-    animation: slideDown 1s ease-out;
-  }
-
-  h1 {
-    color: var(--primary);
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-
-  p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 25px;
-  }
-
-  body.dark-mode p {
-    color: #ccc;
-  }
-
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  a.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 20px;
-    background-color: var(--primary);
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    position: relative;
-  }
-
-  a.button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-  }
-
-  a.button:hover i {
-    transform: rotate(10deg) scale(1.1);
-    transition: transform 0.2s ease;
-  }
-
-  a.button::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--primary);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
-
-  a.button:hover::after {
-    opacity: 1;
-  }
-
-  /* Quick Contact Form */
-  .contact-form {
-    margin-top: 30px;
-    text-align: left;
-  }
-
-  .contact-form input, .contact-form textarea, .contact-form button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  body.dark-mode .contact-form input,
-  body.dark-mode .contact-form textarea {
-    background: #2b3d42;
-    color: var(--text-light);
-    border: 1px solid #555;
-  }
-
-  .contact-form button {
-    background: var(--primary);
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .contact-form button:hover {
-    background: var(--primary-hover);
-  }
-
-  .form-status {
-    margin-top: 15px;
-    font-size: 14px;
-    display: none;
-    text-align: center;
-  }
-
-  .form-status.success { color: green; }
-  .form-status.error { color: red; }
-
-  footer {
-    margin: 25px 0;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  footer span {
-    font-weight: bold;
-    color: var(--primary);
-  }
-
-  /* Dark Mode Toggle */
-  .dark-mode-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s ease;
-  }
-
-  .dark-mode-toggle:hover {
-    background: var(--primary-hover);
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (max-width: 500px) {
-    h1 { font-size: 22px; }
-    p { font-size: 14px; }
-    a.button { font-size: 14px; padding: 12px; }
-  }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        color: black;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    header h1 {
+        color: black;
+        transition: color 0.3s;
+    }
+    body.dark-mode {
+        background-color: #121212;
+        color: white;
+    }
+    body.dark-mode header h1 {
+        color: white;
+    }
+    .dark-mode-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #444;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .tooltip {
+        position: absolute;
+        background: black;
+        color: white;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        visibility: hidden;
+        z-index: 9999; /* Ensures it's above all buttons */
+    }
+    .button-container {
+        position: relative;
+        display: inline-block;
+        margin: 20px;
+    }
+    .button-container:hover .tooltip {
+        visibility: visible;
+    }
 </style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+<header>
+    <h1>Contact APS Office</h1>
+</header>
 
-<div class="container">
-  <img src="KFUPM APS Logo-01.png" alt="APS Logo" class="logo" />
-  <h1>Contact APS Office</h1>
-  <p>We are here to help! Choose the option that fits your needs — it will open an email with a ready-to-fill template.</p>
+<div class="dark-mode-toggle" id="darkModeToggle">🌙 Dark Mode</div>
 
-  <div class="button-container">
-    <a class="button" aria-label="Report an issue to APS Office"
-       data-tooltip="Opens your email with an issue template"
-       href="mailto:aps@kfupm.edu.sa?subject=I%20am%20facing%20an%20issue&body=Hello%20APS%20Office%2C%0A%0AI%20am%20experiencing%20an%20issue...">
-       <i class="fas fa-exclamation-circle"></i> I am facing an issue
-    </a>
-
-    <a class="button" aria-label="Ask a question to APS Office"
-       data-tooltip="Opens your email with an inquiry template"
-       href="mailto:aps@kfupm.edu.sa?subject=I%20have%20an%20inquiry&body=Hello%20APS%20Office%2C%0A%0AI%20have%20a%20question...">
-       <i class="fas fa-question-circle"></i> I have an inquiry
-    </a>
-
-    <a class="button" aria-label="Send a suggestion to APS Office"
-       data-tooltip="Opens your email with a suggestion template"
-       href="mailto:aps@kfupm.edu.sa?subject=Suggestions&body=Hello%20APS%20Office%2C%0A%0AI%20would%20like%20to%20share%20a%20suggestion...">
-       <i class="fas fa-lightbulb"></i> Suggestions
-    </a>
-  </div>
-
-  <!-- Quick Contact Form -->
-  <div class="contact-form">
-    <h2>How can we help?</h2>
-    <form id="apsForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="formStatus" class="form-status"></div>
-  </div>
+<div class="button-container">
+    <button>Contact Us</button>
+    <div class="tooltip">Opens your email with an inquiry template</div>
 </div>
 
-<footer>
-  <span>Designed π Hadi</span>
-</footer>
+<h2>How can we help ?</h2>
+<form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
+    <textarea name="message" placeholder="Your Message" required></textarea><br>
+    <button type="submit">Send</button>
+</form>
 
 <script>
-  // Dark Mode Toggle with localStorage
-  function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-  }
-  // Load preference on page load
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark-mode");
-  }
+    const darkToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
 
-  // AJAX form submission
-  document.getElementById("apsForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const status = document.getElementById("formStatus");
+    // Load saved mode
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        darkToggle.textContent = "☀️ Light Mode";
+    }
 
-    status.style.display = "block";
-    status.textContent = "Sending...";
-    status.className = "form-status";
-
-    fetch("https://formsubmit.co/ajax/aps@kfupm.edu.sa", {
-      method: "POST",
-      body: new FormData(form)
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success === "true") {
-        status.textContent = "✅ Message sent successfully!";
-        status.className = "form-status success";
-        form.reset();
-      } else {
-        status.textContent = "❌ Failed to send message. Please try again.";
-        status.className = "form-status error";
-      }
-    })
-    .catch(() => {
-      status.textContent = "❌ An error occurred. Please check your connection.";
-      status.className = "form-status error";
+    // Toggle mode dynamically
+    darkToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            darkToggle.textContent = "☀️ Light Mode";
+            localStorage.setItem('theme', 'dark');
+        } else {
+            darkToggle.textContent = "🌙 Dark Mode";
+            localStorage.setItem('theme', 'light');
+        }
     });
-  });
+
+    // AJAX Form Submission
+    document.getElementById("contactForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        alert("Form submitted via AJAX: How can we help ?");
+    });
 </script>
 
 </body>
