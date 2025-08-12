@@ -73,6 +73,7 @@
       flex-direction: column;
       gap: 20px;
       position: relative;
+      margin-bottom: 40px;
     }
 
     a.button {
@@ -127,6 +128,71 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     }
 
+    /* Form styling */
+    form#helpForm {
+      text-align: left;
+      max-width: 450px;
+      margin: 0 auto 20px;
+    }
+
+    form#helpForm label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    form#helpForm input,
+    form#helpForm textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    body.dark-mode form#helpForm input,
+    body.dark-mode form#helpForm textarea {
+      background-color: #2a3a46;
+      color: #e0e6eb;
+      border: 1px solid #555;
+    }
+
+    form#helpForm input:focus,
+    form#helpForm textarea:focus {
+      border-color: #115f66;
+      outline: none;
+    }
+
+    form#helpForm button {
+      background-color: #115f66;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    form#helpForm button:hover {
+      background-color: #177b84;
+    }
+
+    /* Response message styling */
+    #formResponse {
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 10px;
+      color: green;
+      text-align: center;
+    }
+
+    /* Footer */
     footer {
       margin-top: 20px;
       text-align: center;
@@ -154,6 +220,11 @@
       }
 
       a.button {
+        font-size: 14px;
+        padding: 12px 16px;
+      }
+
+      form#helpForm button {
         font-size: 14px;
         padding: 12px 16px;
       }
@@ -209,6 +280,21 @@
         <i class="fas fa-lightbulb"></i> Suggestions
       </a>
     </div>
+
+    <!-- AJAX Form: How can we help? -->
+    <form id="helpForm" aria-label="How can we help? form">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required placeholder="Enter your full name" autocomplete="name" />
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required placeholder="Enter your email" autocomplete="email" />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" required placeholder="How can we help?"></textarea>
+
+      <button type="submit">Send Message</button>
+      <div id="formResponse" role="alert" aria-live="polite"></div>
+    </form>
   </div>
 
   <!-- Footer with designer credit -->
@@ -231,13 +317,11 @@
         darkToggleBtn.textContent = '🌙 Dark Mode';
         darkToggleBtn.setAttribute('aria-pressed', 'false');
       }
-      // Save preference
       try {
         localStorage.setItem('aps_dark_mode', isDark ? '1' : '0');
       } catch(e) {}
     }
 
-    // Initialize on page load from saved preference or default to light
     (function initDarkMode() {
       let saved = null;
       try {
@@ -253,7 +337,38 @@
     darkToggleBtn.addEventListener('click', () => {
       applyDarkMode(!body.classList.contains('dark-mode'));
     });
-  </script>
 
+    // AJAX form submission for "How can we help?"
+    const helpForm = document.getElementById('helpForm');
+    const formResponse = document.getElementById('formResponse');
+
+    helpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = {
+        name: helpForm.name.value.trim(),
+        email: helpForm.email.value.trim(),
+        message: helpForm.message.value.trim(),
+      };
+
+      // Simple validation (already required by inputs, but just in case)
+      if (!formData.name || !formData.email || !formData.message) {
+        formResponse.style.color = 'red';
+        formResponse.textContent = 'Please fill out all fields.';
+        return;
+      }
+
+      // Simulate AJAX submission
+      formResponse.style.color = '#115f66';
+      formResponse.textContent = 'Sending message...';
+
+      // Simulate delay (e.g., server request)
+      setTimeout(() => {
+        formResponse.textContent = 'Thank you! Your message has been sent. How can we help?';
+        helpForm.reset();
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
